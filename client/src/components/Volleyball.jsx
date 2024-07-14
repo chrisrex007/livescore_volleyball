@@ -66,15 +66,17 @@ const Volleyball = () => {
   const [team2_img, setTeam2Img] = useState(
     "https://static.flashscore.com/res/image/data/fBWBjchl-dWxvhZJm.png"
   );
-  const [setScores1, setSetScores1] = useState([2, 13, 27, 14, 25]); //should be updated by volleyballeditor.jsx
+  const [setScores1, setSetScores1] = useState([2, 13, 27, 14, 25]);
   const [setScores2, setSetScores2] = useState([3, 15, 22, 14, 25]);
   const [finished, setFinished] = useState([1, 1, 1, 1, 1]);
 
   useEffect(() => {
-    if (items.length) {
-      setSetScores1(items[0].s1);
-      setSetScores2(items[0].s2);
-      setFinished(items[0].fin);
+    console.log(items);
+    if (items.s1 != undefined) {
+      setSetScores1(items.s1);
+      setSetScores2(items.s2);
+      setFinished(items.fin);
+      // console.log(items.s1, items.s2, items.fin);
     }
   }, [items]);
 

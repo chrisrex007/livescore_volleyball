@@ -9,15 +9,6 @@ const VolleyballEditor = () => {
 
   const [items, setItems] = useState([]);
 
-  const fetchItems = async () => {
-    try {
-      const response = await axios.get("http://localhost:5000/items");
-      setItems(response.data);
-    } catch (error) {
-      console.error("There was an error fetching the items!", error);
-    }
-  };
-
   const [score1, setScore1] = useState([0, 0, 0, 0, 0]);
   const [score2, setScore2] = useState([0, 0, 0, 0, 0]);
   const [finished, setFinished] = useState([0, 0, 0, 0, 0]);
@@ -25,7 +16,6 @@ const VolleyballEditor = () => {
   const [teamid, setTeamid] = useState();
   const [index, setIndex] = useState();
   const [points, setPoints] = useState();
-  const [id, setId] = useState(0); //Database id
 
   const sendUpdatedScoreToBackend = async () => {
     try {
@@ -33,7 +23,6 @@ const VolleyballEditor = () => {
         score1,
         score2,
         finished,
-        id,
       });
       console.log("Score updated successfully!");
     } catch (error) {
@@ -42,15 +31,22 @@ const VolleyballEditor = () => {
   };
 
   useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/items");
+        setItems(response.data);
+      } catch (error) {
+        console.error("There was an error fetching the items!", error);
+      }
+    };
     fetchItems();
   }, []);
 
   useEffect(() => {
-    if (items.length) {
-      setScore1(items[0].s1);
-      setScore2(items[0].s2);
-      setFinished(items[0].fin);
-      setId(items[0]._id);
+    if (items.s1 != undefined) {
+      setScore1(items.s1);
+      setScore2(items.s2);
+      setFinished(items.fin);
     }
   }, [items]);
 
@@ -73,8 +69,8 @@ const VolleyballEditor = () => {
   };
 
   useEffect(() => {
-    if (items.length) {
-      const temp = [{ s1: score1, s2: score2, fin: finished, _id: id }];
+    if (items.s1 != undefined) {
+      const temp = { s1: score1, s2: score2, fin: finished };
       setItems(temp);
       sendUpdatedScoreToBackend();
     }
