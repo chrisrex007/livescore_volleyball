@@ -11,8 +11,8 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/volleyball" element={<Volleyball />} />
+          {/* <Route path="/" element={<Home />} /> */}
+          <Route path="/" element={<Volleyball />} />
           <Route path="/athletics" element={<Athletics />} />
           <Route path="/tennis" element={<Tennis />} />
           <Route path="/volleyballeditor" element={<VolleyballEditor />} />
